@@ -1,0 +1,59 @@
+%YAML 1.2
+---
+name: FCG
+version: 1
+file_extensions: [fcg]
+scope: source.fcg
+first_line_match: V\d{2}
+contexts:
+  main:
+    #version
+    - match: 'V(?=\d{2})'
+      scope: keyword.control
+    - match: 'D(?=\d{2})'
+      scope: keyword.control
+    - match: '\\<'
+      scope: variable.member
+    - match: '\\>'
+      scope: variable.member
+    - match: '\\\\'
+      scope: variable.member
+    #keyword
+    - match: 'true'
+      scope: variable.member
+    - match: 'false'
+      scope: variable.member
+    - match: '(?<=V)(\d{2})'
+      scope: constant.numeric
+    - match: '(?<=D)(\d{2})'
+      scope: constant.numeric
+    - match: '(?<!\\<)(?<=<)[^<>\s]+(?=\s)'
+      scope: variable.annotation
+    - match: '(?<!\\<)(?<=</)[^<>]+(?=>)'
+      scope: variable.annotation
+    - match: '(?<!\\<)(?<=<)[^<>]+(?=>)'
+      scope: variable.annotation
+    - match: '(?<=\s)[^<>=]+(?==)'
+      scope: punctuation.accessor
+    - match: '\d+'
+      scope: constant.numeric
+    #operator
+    - match: "</"
+      scope: keyword.control
+    - match: '<'
+      scope: keyword.control
+    - match: '>'
+      scope: keyword.control
+    - match: '='
+      scope: keyword.control
+    #value
+    - match: '"'
+      push: string
+    - match: '(?<==)[^<>\s=]+'
+      scope: string
+  string:
+    - meta_scope: string.quoted.double.c
+    - match: \\.
+      scope: constant.character.escape.c
+    - match: '"'
+      pop: true
