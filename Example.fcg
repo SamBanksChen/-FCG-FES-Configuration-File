@@ -1,0 +1,8 @@
+V13D00
+<NodeRoot>
+	<NodeExample name=example text="An NodeExample">
+		value...\<Not a Node\> and \\
+		<NodeChild>
+		</NodeChild>
+	</NodeExample>
+</NodeRoot>
